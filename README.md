@@ -60,7 +60,4 @@ Run a debug pod that uses the monitoring-reader SA:
 
 ![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/2.png)
 
-Expected forbidden output for delete:
-```
-Error from server (Forbidden): pods "<name>" is forbidden: User "system:serviceaccount:monitoring:monitoring-reader" cannot delete resource "pods" in API group "" in the namespace "monitoring"
-```
+
