@@ -57,14 +57,8 @@ kubectl apply -f manifests/part2/monitoring-read-rolebinding.yaml
 
 ### Test
 Run a debug pod that uses the monitoring-reader SA:
-```bash
-kubectl run -n monitoring test-reader --image=bitnami/kubectl:latest --overrides='{"spec":{"serviceAccountName":"monitoring-reader"}}' --rm -it -- bash
-# inside pod:
-kubectl get pods      # should succeed (lists pods in monitoring namespace)
-kubectl get deployments.apps  # should succeed
-kubectl get configmaps  # should succeed
-kubectl delete pod <some-pod>  # should fail - Forbidden
-```
+
+![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/2.png)
 
 Expected forbidden output for delete:
 ```
