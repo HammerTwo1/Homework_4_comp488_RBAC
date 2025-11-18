@@ -23,7 +23,7 @@
 ### 1.1 Inspect Default Service Accounts
 Screenshot:
 
-![Screenshot (88)](C:\Users\Bishop\Documents\HW4COMP488\1.1.1.png)
+![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/1.1.1.png)
 
 ### Question: Why doesn't the default service account have many permissions?
 
