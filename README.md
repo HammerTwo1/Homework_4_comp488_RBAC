@@ -38,9 +38,9 @@ kubectl run test-pod --image=bitnami/kubectl:latest --rm -it -- bash
 kubectl get pods
 ```
 Error inside pod:
-```
-Error from server (Forbidden): pods is forbidden: User "system:serviceaccount:default:default" cannot list resource "pods" in API group "" in the namespace "default"
-```
+
+![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/1.2.png)
+
 Explanation: The kubectl running inside the pod uses the in-cluster credentials. Since that service account lacks list permission on pods, the API server forbids the action.
 
 ---
