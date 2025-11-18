@@ -123,11 +123,11 @@ kubectl apply -f Homework_4_comp488_RBAC/part4/deployment-manager-fixed.yaml
 - RoleBinding(production): ops-admin -> ops-production-writer
 - ClusterRoleBinding: ops-admin -> ops-cluster-reader
 
-## Justification
+### Justification
 - Use Roles for namespace-scoped permissions to follow least privilege.
 - Use ClusterRole for cluster-scoped/list-all-namespace requirements.
 
-## Diagram (text)
+### Diagram (text)
 
 - [dev-deployer SA] --(RoleBinding in dev)--> dev-deployer-role (Role)
 - [qa-reader SA] --(RoleBinding in dev, staging)--> qa-readonly-role
