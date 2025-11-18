@@ -61,3 +61,18 @@ Run a debug pod that uses the monitoring-reader SA:
 ![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/2.png)
 
 
+---
+## Part 3 — Cluster-Wide Access
+Files: manifests/part3/*
+
+### Apply
+```bash
+kubectl apply -f manifests/part3/log-collector-sa.yaml
+kubectl apply -f manifests/part3/log-reader-clusterrole.yaml
+kubectl apply -f manifests/part3/log-reader-binding.yaml
+```
+
+### Test
+Run a debug pod that uses the log-collector SA:
+![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/3.png)
+
