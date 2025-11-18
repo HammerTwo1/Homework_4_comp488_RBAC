@@ -88,14 +88,14 @@ Files: Homework_4_comp488_RBAC/part4/deployment-manager-broken.yaml and deployme
 kubectl apply -f Homework_4_comp488_RBAC/part4/deployment-manager-fixed.yaml
 ```
 ---
-# Part 5: Real-World Scenario
+## Part 5: Real-World Scenario
 
-## Namespaces
+### Namespaces
 - dev
 - staging
 - production
 
-## Teams and requirements
+### Teams and requirements
 
 1. Developers
    - Need to deploy and manage applications in `dev` namespace (create/update/delete deployments, pods, services)
