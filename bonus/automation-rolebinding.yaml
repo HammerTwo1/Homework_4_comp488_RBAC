@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bind-automation-pod-manager
+  namespace: automation-ns
+subjects:
+  - kind: ServiceAccount
+    name: automation
+    namespace: automation-ns
+roleRef:
+  kind: Role
+  name: automation-pod-manager
+  apiGroup: rbac.authorization.k8s.io

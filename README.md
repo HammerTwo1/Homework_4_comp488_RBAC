@@ -76,7 +76,7 @@ kubectl apply -f Homework_4_comp488_RBAC/part3/log-reader-binding.yaml
 Run a debug pod that uses the log-collector SA:
 ![Screenshot (88)](https://github.com/HammerTwo1/Homework_4_comp488_RBAC/blob/main/3.png)
 ---
-## Part 4 — Troubleshooting RBAC (broken -> fixed)
+## Part 4 — Troubleshooting RBAC Issues
 Files: Homework_4_comp488_RBAC/part4/deployment-manager-broken.yaml and deployment-manager-fixed.yaml
 
 ### Broken issues identified
@@ -88,4 +88,59 @@ Files: Homework_4_comp488_RBAC/part4/deployment-manager-broken.yaml and deployme
 kubectl apply -f Homework_4_comp488_RBAC/part4/deployment-manager-fixed.yaml
 ```
 ---
+# Part 5: Real-World Scenario
 
+## Namespaces
+- dev
+- staging
+- production
+
+## Teams and requirements
+
+1. Developers
+   - Need to deploy and manage applications in `dev` namespace (create/update/delete deployments, pods, services)
+2. QA
+   - Read-only access to `dev` and `staging` (get/list/watch)
+3. Ops
+   - Cluster-wide read access, write access to `production`
+
+## Proposed RBAC objects
+
+### ServiceAccounts
+- dev-deployer (namespace: dev)
+- qa-reader (namespace: qa or dev/staging)
+- ops-admin (namespace: ops or default)
+
+### Roles and ClusterRoles
+- Role: dev-deployer-role (namespace: dev) — CRUD on deployments/pods/services
+- Role: qa-readonly-role (namespace: dev, namespace: staging) — get/list/watch resources
+- Role: ops-production-writer (namespace: production) — write access in production
+- ClusterRole: ops-cluster-reader — cluster-wide read access (nodes, pods across namespaces, events)
+
+### Bindings
+- RoleBinding(dev): dev-deployer -> dev-deployer-role
+- RoleBinding(dev, staging): qa-reader -> qa-readonly-role
+- RoleBinding(production): ops-admin -> ops-production-writer
+- ClusterRoleBinding: ops-admin -> ops-cluster-reader
+
+## Justification
+- Use Roles for namespace-scoped permissions to follow least privilege.
+- Use ClusterRole for cluster-scoped/list-all-namespace requirements.
+
+## Diagram (text)
+
+- [dev-deployer SA] --(RoleBinding in dev)--> dev-deployer-role (Role)
+- [qa-reader SA] --(RoleBinding in dev, staging)--> qa-readonly-role
+- [ops-admin SA] --(ClusterRoleBinding)--> ops-cluster-reader
+- [ops-admin SA] --(RoleBinding in production)--> ops-production-writer
+
+---
+## Bonus — Enforced policy for automation label (Kyverno)
+Files: manifests/bonus/*
+- `require-managed-by-automation.yaml` (Kyverno ClusterPolicy)
+
+Apply Kyverno (cluster admin) and then apply the policy. The policy enforces that pods created by `system:serviceaccount:automation-ns:automation` must include label `managed-by=automation`.
+
+Test as described in manifests/bonus/README.txt.
+
+---

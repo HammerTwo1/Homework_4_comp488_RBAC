@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-managed-by-automation-for-serviceaccount
+spec:
+  validationFailureAction: enforce
+  rules:
+    - name: require-label-for-automation-sa
+      match:
+        resources:
+          kinds: ["Pod"]
+
+      preconditions:
+        any:
+          - key: "{{ request.userInfo.username }}"
+            operator: Equals
+            value: "system:serviceaccount:automation-ns:automation"
+      validate:
+        message: "Pods created by automation serviceaccount must have label managed-by=automation"
+        pattern:
+          metadata:
+            labels:
+              managed-by: "automation"
