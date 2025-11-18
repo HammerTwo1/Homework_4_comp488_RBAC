@@ -136,11 +136,9 @@ kubectl apply -f Homework_4_comp488_RBAC/part4/deployment-manager-fixed.yaml
 
 ---
 ## Bonus — Enforced policy for automation label (Kyverno)
-Files: manifests/bonus/*
+Files: Homework_4_comp488_RBAC/bonus/*
 - `require-managed-by-automation.yaml` (Kyverno ClusterPolicy)
 
 Apply Kyverno (cluster admin) and then apply the policy. The policy enforces that pods created by `system:serviceaccount:automation-ns:automation` must include label `managed-by=automation`.
-
-Test as described in manifests/bonus/README.txt.
 
 ---
